@@ -95,7 +95,11 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
 
     let check = quote! {
         #(
-            let #field_name = #field_name.ok_or(concat!("Could not find the mandatory \"", #field_parse, "\" field in paragraph"))?;
+            let #field_name = #field_name.ok_or(
+                concat!(
+                    "Could not find the mandatory \"",
+                    #field_parse,
+                    "\" field in paragraph"))?;
         )*
     };
 
