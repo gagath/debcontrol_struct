@@ -1,3 +1,36 @@
+//! Automatic Debian control file parsing for structs.
+//!
+//! # Example
+//!
+//! ```rust
+//! use debcontrol::{Paragraph, Field};
+//! use debcontrol_struct::DebControl;
+//!
+//! #[derive(DebControl)]
+//! struct DerivedStruct {
+//!     first: String,
+//!     multiple_words: String,
+//!     optional: Option<String>,
+//! }
+//!
+//! let input = Paragraph {
+//!     fields: vec![
+//!         Field {
+//!             name: "First",
+//!             value: "Hello".into(),
+//!         },
+//!         Field {
+//!             name: "MultipleWords",
+//!             value: "World".into(),
+//!         },
+//!     ],
+//! };
+//!
+//! let derived = DerivedStruct::from_paragraph(&input).unwrap();
+//! assert_eq!("Hello", derived.first);
+//! assert_eq!("World", derived.multiple_words);
+//! assert_eq!(None, derived.optional);
+//! ```
 use debcontrol::Paragraph;
 
 pub trait DebControl {
