@@ -17,6 +17,46 @@ your project's `Cargo.toml` file:
 debcontrol_struct = "1.0.2"
 ```
 
+## Example
+
+After the crate is installed, you can enjoy the `ListStoreItem` derive!
+
+By defining the following structure:
+
+```rust
+use debcontrol::{Paragraph, Field};
+use debcontrol_struct::DebControl;
+
+#[derive(DebControl)]
+struct DerivedStruct {
+    first: String,
+    multiple_words: String,
+    optional: Option<String>,
+}
+```
+
+You can then automatically parse the structure from a debcontrol Paragraph:
+
+```rust
+let input = Paragraph {
+    fields: vec![
+        Field {
+            name: "First",
+            value: "Hello".into(),
+        },
+        Field {
+            name: "MultipleWords",
+            value: "World".into(),
+        },
+    ],
+};
+
+let derived = DerivedStruct::from_paragraph(&input).unwrap();
+assert_eq!("Hello", derived.first);
+assert_eq!("World", derived.multiple_words);
+assert_eq!(None, derived.optional);
+```
+
 ## License
 
 Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT
