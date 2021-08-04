@@ -45,7 +45,7 @@ let input = Paragraph {
             value: "Hello".into(),
         },
         Field {
-            name: "MultipleWords",
+            name: "Multiple-Words",
             value: "World".into(),
         },
     ],
