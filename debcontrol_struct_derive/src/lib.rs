@@ -30,6 +30,7 @@ fn ident_to_parse(ident: &Ident) -> String {
         match c {
             '_' => {
                 next_char_is_upper = true;
+                out.push('-');
             }
             _ => {
                 if next_char_is_upper {
@@ -143,11 +144,11 @@ mod test {
             ident_to_parse(&Ident::new("field", Span::call_site()))
         );
         assert_eq!(
-            "ComposedField",
+            "Composed-Field",
             ident_to_parse(&Ident::new("composed_field", Span::call_site()))
         );
         assert_eq!(
-            "AlreadyUpper",
+            "Already-Upper",
             ident_to_parse(&Ident::new("Already_Upper", Span::call_site()))
         );
     }

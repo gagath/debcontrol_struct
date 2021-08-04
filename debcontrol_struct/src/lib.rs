@@ -20,7 +20,7 @@
 //!             value: "Hello".into(),
 //!         },
 //!         Field {
-//!             name: "MultipleWords",
+//!             name: "Multiple-Words",
 //!             value: "World".into(),
 //!         },
 //!     ],
@@ -158,7 +158,7 @@ mod derive_test {
                     value: "Hello".into(),
                 },
                 Field {
-                    name: "MultipleWords",
+                    name: "Multiple-Words",
                     value: "World".into(),
                 },
             ],
@@ -180,7 +180,7 @@ mod derive_test {
                     value: "Hello".into(),
                 },
                 Field {
-                    name: "MultipleWords",
+                    name: "Multiple-Words",
                     value: "World".into(),
                 },
                 Field {
