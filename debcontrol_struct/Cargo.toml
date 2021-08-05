@@ -1,6 +1,6 @@
 [package]
 name = "debcontrol_struct"
-version = "0.2.0"
+version = "0.3.0"
 authors = ["Romain Porte <microjoe@microjoe.org>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
@@ -14,10 +14,10 @@ repository = "https://github.com/MicroJoe/debcontrol_struct"
 
 [dependencies]
 debcontrol = "0.1.1"
-debcontrol_struct_derive = { version = "0.2.0", optional = true, path = "../debcontrol_struct_derive" }
+debcontrol_struct_derive = { version = "0.3.0", optional = true, path = "../debcontrol_struct_derive" }
 
 [dev-dependencies]
-debcontrol_struct_derive = { version = "0.2.0", path = "../debcontrol_struct_derive" }
+debcontrol_struct_derive = { version = "0.3.0", path = "../debcontrol_struct_derive" }
 
 [features]
 default = ["derive"]
