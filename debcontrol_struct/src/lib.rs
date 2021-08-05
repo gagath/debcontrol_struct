@@ -13,24 +13,17 @@
 //!     optional: Option<String>,
 //! }
 //!
-//! let input = Paragraph {
-//!     fields: vec![
-//!         Field {
-//!             name: "First",
-//!             value: "Hello".into(),
-//!         },
-//!         Field {
-//!             name: "Multiple-Words",
-//!             value: "World".into(),
-//!         },
-//!     ],
-//! };
+//! let input = &debcontrol::parse_str(
+//!     "First: Hello\n\
+//!      Multiple-Words: World\n"
+//! ).unwrap()[0];
 //!
 //! let derived = DerivedStruct::from_paragraph(&input).unwrap();
 //! assert_eq!("Hello", derived.first);
 //! assert_eq!("World", derived.multiple_words);
 //! assert_eq!(None, derived.optional);
 //! ```
+
 use debcontrol::Paragraph;
 
 pub trait DebControl {
