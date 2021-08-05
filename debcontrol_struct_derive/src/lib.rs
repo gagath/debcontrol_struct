@@ -58,6 +58,8 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
         _ => panic!("expected a struct with named fields"),
     };
 
+    // from_paragraph impl
+
     let field_name = fields.iter().map(|field| &field.ident);
 
     let vars = quote! {
@@ -106,20 +108,74 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
 
     let field_name = fields.iter().map(|field| &field.ident);
 
+    let from_paragraph = quote! {
+        fn from_paragraph(p: &Paragraph) -> Result<Self, &'static str>
+        {
+            #vars
+            #matches
+            #check
+
+            Ok(Self {
+                #(
+                    #field_name
+                ),*
+            })
+        }
+    };
+
+    // to_paragraph impl
+
+    let mandatory_fields_name = fields
+        .iter()
+        .filter(|field| !is_option(&field.ty))
+        .map(|field| &field.ident);
+    let mandatory_fields_parse = fields
+        .iter()
+        .filter(|field| !is_option(&field.ty))
+        .map(|field| &field.ident)
+        .map(|i| i.as_ref().map(|x| ident_to_parse(x)));
+
+    let paragraph_decl = quote! {
+        let mut p = Paragraph {
+            fields: vec![
+                #(Field {
+                    name: #mandatory_fields_parse,
+                    value: self.#mandatory_fields_name.clone(),
+                }),*
+            ]
+        };
+    };
+
+    let optional_fields_name = fields
+        .iter()
+        .filter(|field| is_option(&field.ty))
+        .map(|field| &field.ident);
+    let optional_fields_parse = fields
+        .iter()
+        .filter(|field| is_option(&field.ty))
+        .map(|field| &field.ident)
+        .map(|i| i.as_ref().map(|x| ident_to_parse(x)));
+
+    let optional_paragraphs = quote! {
+        #(
+            if let Some(f) = &self.#optional_fields_name {
+                p.fields.push(Field {name: #optional_fields_parse, value: f.to_string()});
+            }
+        )*
+    };
+
+    let to_paragraph = quote! {
+        fn to_paragraph(&self) -> Paragraph {
+            #paragraph_decl
+            #optional_paragraphs
+            p
+        }
+    };
+
     let gen = quote! {
         impl DebControl for #name {
-            fn from_paragraph(p: &Paragraph) -> Result<Self, &'static str>
-            {
-                #vars
-                #matches
-                #check
-
-                Ok(Self {
-                    #(
-                        #field_name
-                    ),*
-                })
-            }
+            #from_paragraph
+            #to_paragraph
         }
     };
 
