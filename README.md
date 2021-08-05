@@ -38,18 +38,10 @@ struct DerivedStruct {
 You can then automatically parse the structure from a debcontrol Paragraph:
 
 ```rust
-let input = Paragraph {
-    fields: vec![
-        Field {
-            name: "First",
-            value: "Hello".into(),
-        },
-        Field {
-            name: "Multiple-Words",
-            value: "World".into(),
-        },
-    ],
-};
+let input = &debcontrol::parse_str(
+    "First: Hello\n\
+     Multiple-Words: World\n"
+).unwrap()[0];
 
 let derived = DerivedStruct::from_paragraph(&input).unwrap();
 assert_eq!("Hello", derived.first);
