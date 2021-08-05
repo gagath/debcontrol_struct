@@ -1,5 +1,4 @@
-//! A Rust crate to easily import Glade-generated UI files into Rust code (proc
-//! macros).
+//! Automatic Debian control file parsing for structs (proc macro).
 
 use proc_macro::TokenStream;
 use proc_macro2::Ident;
