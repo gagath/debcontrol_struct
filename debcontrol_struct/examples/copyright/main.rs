@@ -19,7 +19,7 @@ pub struct CopyrightHeader {
 
 fn main() {
     let input = include_str!("copyright");
-    let paragraphs = parse_str(&input).expect("could not parse");
+    let paragraphs = parse_str(input).expect("could not parse");
 
     let data = CopyrightHeader::from_paragraph(&paragraphs[0]);
     println!("{:?}", data);
