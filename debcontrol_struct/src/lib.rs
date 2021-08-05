@@ -30,6 +30,8 @@ pub trait DebControl {
     fn from_paragraph(p: &Paragraph) -> Result<Self, &'static str>
     where
         Self: Sized;
+
+    fn to_paragraph(&self) -> Paragraph;
 }
 
 // Re-export #[derive(DebControl)].
@@ -76,6 +78,23 @@ mod manual {
 
             let license = mandatory!(license)?;
             Ok(StandaloneLicense { license, comment })
+        }
+
+        fn to_paragraph(&self) -> Paragraph {
+            let mut p = Paragraph {
+                fields: vec![
+                    Field {
+                        name: "License",
+                        value: self.license.clone(),
+                    }
+                ]
+            };
+
+            if let Some(comment) = &self.comment {
+                p.fields.push(Field {name: "Comment", value: comment.to_string()});
+            }
+
+            p
         }
     }
 
@@ -126,11 +145,50 @@ mod manual {
 
         assert!(StandaloneLicense::from_paragraph(&input).is_err());
     }
+
+    #[test]
+    fn test_to_paragraph() {
+        let expected = Paragraph {
+            fields: vec![Field {
+                name: "License",
+                value: "Expat".into(),
+            }],
+        };
+
+        let value = StandaloneLicense {
+            license: "Expat".into(),
+            comment: None,
+        };
+
+        assert_eq!(expected, value.to_paragraph());
+    }
+
+    #[test]
+    fn test_to_paragraph_extended() {
+        let expected = Paragraph {
+            fields: vec![
+            Field {
+                name: "License",
+                value: "Expat".into(),
+            },
+            Field {
+                name: "Comment",
+                value: "Curious license to use...".into(),
+            }],
+        };
+
+        let value = StandaloneLicense {
+            license: "Expat".into(),
+            comment: Some("Curious license to use...".into()),
+        };
+
+        assert_eq!(expected, value.to_paragraph());
+    }
 }
 
 #[cfg(feature = "derive")]
 #[cfg(test)]
-mod derive_test {
+mod derive {
     use crate::*;
     use debcontrol::{Field, Paragraph};
     use debcontrol_struct_derive::DebControl;
@@ -200,5 +258,57 @@ mod derive_test {
         };
 
         assert!(DerivedStruct::from_paragraph(&input).is_err());
+    }
+
+    #[test]
+    fn test_to_paragraph() {
+        let expected = Paragraph {
+            fields: vec![
+                Field {
+                    name: "First",
+                    value: "Hello".into(),
+                },
+                Field {
+                    name: "Multiple-Words",
+                    value: "World".into(),
+                },
+            ],
+        };
+
+        let value = DerivedStruct {
+            first: "Hello".into(),
+            multiple_words: "World".into(),
+            optional: None,
+        };
+
+        assert_eq!(expected, value.to_paragraph());
+    }
+
+    #[test]
+    fn test_to_paragraph_extended() {
+        let expected = Paragraph {
+            fields: vec![
+                Field {
+                    name: "First",
+                    value: "Hello".into(),
+                },
+                Field {
+                    name: "Multiple-Words",
+                    value: "World".into(),
+                },
+                Field {
+                    name: "Optional",
+                    value: "!".into(),
+                },
+            ],
+        };
+
+        let value = DerivedStruct {
+            first: "Hello".into(),
+            multiple_words: "World".into(),
+            optional: Some("!".into()),
+        };
+
+        assert_eq!(expected, value.to_paragraph());
     }
 }

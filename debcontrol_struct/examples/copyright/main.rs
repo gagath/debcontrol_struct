@@ -2,7 +2,7 @@
 // It will only parse the copyright header described in
 // https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 
-use debcontrol::{Paragraph, parse_str};
+use debcontrol::{Paragraph, Field, parse_str};
 use debcontrol_struct::DebControl;
 
 #[derive(Debug, DebControl)]
