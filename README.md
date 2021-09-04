@@ -14,7 +14,7 @@ your project's `Cargo.toml` file:
 
 ```toml
 [dependencies]
-debcontrol_struct = "0.3.0"
+debcontrol_struct = "0.3.1"
 ```
 
 ## Example
