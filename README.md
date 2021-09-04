@@ -19,7 +19,7 @@ debcontrol_struct = "0.3.0"
 
 ## Example
 
-After the crate is installed, you can enjoy the `ListStoreItem` derive!
+After the crate is installed, you can enjoy the `DebControl` derive!
 
 By defining the following structure:
 

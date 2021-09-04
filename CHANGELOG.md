@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
  - Fix clippy warning in examples/copyright.
+ - Fix wrong derive name in README.
 
 ## [0.3.0] - 2021-08-05
 ### Added
