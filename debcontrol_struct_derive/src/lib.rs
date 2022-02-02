@@ -75,7 +75,7 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
     let field_parse = fields
         .iter()
         .map(|field| &field.ident)
-        .map(|i| i.as_ref().map(|x| ident_to_parse(x)));
+        .map(|i| i.as_ref().map(ident_to_parse));
 
     let matches = quote! {
         for field in &p.fields {
@@ -97,7 +97,7 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
     let field_parse = fields
         .iter()
         .map(|field| &field.ident)
-        .map(|i| i.as_ref().map(|x| ident_to_parse(x)));
+        .map(|i| i.as_ref().map(ident_to_parse));
 
     let check = quote! {
         #(
@@ -136,7 +136,7 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
         .iter()
         .filter(|field| !is_option(&field.ty))
         .map(|field| &field.ident)
-        .map(|i| i.as_ref().map(|x| ident_to_parse(x)));
+        .map(|i| i.as_ref().map(ident_to_parse));
 
     let paragraph_decl = quote! {
         let mut p = Paragraph {
@@ -157,7 +157,7 @@ fn impl_debcontrol_struct(ast: &DeriveInput) -> TokenStream {
         .iter()
         .filter(|field| is_option(&field.ty))
         .map(|field| &field.ident)
-        .map(|i| i.as_ref().map(|x| ident_to_parse(x)));
+        .map(|i| i.as_ref().map(ident_to_parse));
 
     let optional_paragraphs = quote! {
         #(
