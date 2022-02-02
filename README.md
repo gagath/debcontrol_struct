@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2022 Agathe Porte <microjoe@microjoe.org>
+
+SPDX-License-Identifier: Apache-2.0 OR MIT
+-->
+
 # debcontrol_struct
 
 [![Build](https://github.com/MicroJoe/debcontrol_struct/actions/workflows/ci.yml/badge.svg)](https://github.com/MicroJoe/debcontrol_struct/actions/workflows/ci.yml)

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 Agathe Porte <microjoe@microjoe.org>
+//
+// SPDX-License-Identifier: Apache-2.0 OR MIT
+
 //! Automatic Debian control file parsing for structs.
 //!
 //! # Example
