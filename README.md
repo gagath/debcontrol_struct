@@ -10,6 +10,7 @@ SPDX-License-Identifier: Apache-2.0 OR MIT
 [![Latest version](https://img.shields.io/crates/v/debcontrol_struct.svg)](https://crates.io/crates/debcontrol_struct)
 [![Documentation](https://docs.rs/debcontrol_struct/badge.svg)](https://docs.rs/debcontrol_struct)
 [![License](https://img.shields.io/crates/l/debcontrol_struct.svg)](https://crates.io/crates/debcontrol_struct)
+[![REUSE status](https://api.reuse.software/badge/github.com/MicroJoe/debcontrol_struct)](https://api.reuse.software/info/github.com/MicroJoe/debcontrol_struct)
 
 Automatic Debian control file parsing for structs.
 
